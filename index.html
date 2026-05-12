@@ -572,6 +572,28 @@
       height: auto;
       display: block;
     }
+    .rq-compare-btn {
+      margin-top: 14px;
+      background: var(--bgPanel);
+      color: var(--accentBlue);
+      border: 1px solid var(--accentBlue);
+      font-size: 0.78rem;
+      padding: 7px 14px;
+    }
+    .rq-compare-btn:hover { background: var(--accentBlue); color: #fff; }
+    .rq-compare {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--borderColor);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      animation: fadeUp 0.3s ease-out;
+    }
+    .rq-compare[hidden] { display: none !important; }
+    .rq-compare .answer-pill { margin-bottom: 2px; }
 
     /* ─────────────── Fullscreen simulation overlay ─────────────── */
     .sim-overlay {
@@ -1288,10 +1310,26 @@
             <div class="rq-structure">
               <div class="rq-structure-label">Methamphetamine</div>
               <svg class="mol-svg" data-smiles="CC(NC)Cc1ccccc1" data-size="small" aria-label="Methamphetamine"></svg>
+              <button class="reveal-toggle rq-compare-btn" type="button" onclick="toggleCompare(this)" data-label-show="Reveal similar neurotransmitter" data-label-hide="Hide neurotransmitter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="reveal-toggle-label">Reveal similar neurotransmitter</span>
+              </button>
+              <div class="rq-compare" hidden>
+                <span class="answer-pill">Dopamine</span>
+                <svg class="mol-svg" data-smiles="NCCc1ccc(O)c(O)c1" data-size="small" aria-label="Dopamine"></svg>
+              </div>
             </div>
             <div class="rq-structure">
               <div class="rq-structure-label">MDMA</div>
               <svg class="mol-svg" data-smiles="CC(NC)Cc1ccc2c(c1)OCO2" data-size="small" aria-label="MDMA"></svg>
+              <button class="reveal-toggle rq-compare-btn" type="button" onclick="toggleCompare(this)" data-label-show="Reveal similar neurotransmitter" data-label-hide="Hide neurotransmitter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="reveal-toggle-label">Reveal similar neurotransmitter</span>
+              </button>
+              <div class="rq-compare" hidden>
+                <span class="answer-pill">Serotonin</span>
+                <svg class="mol-svg" data-smiles="NCCc1c[nH]c2ccc(O)cc12" data-size="small" aria-label="Serotonin"></svg>
+              </div>
             </div>
           </div>
         </article>
@@ -1373,6 +1411,21 @@
       mechanisms:       document.getElementById('panel-mechanisms'),
       reflection:       document.getElementById('panel-reflection'),
     };
+
+    /* ─── Compare-NT toggle (Tab 4 Q3) ─── */
+    function toggleCompare(btn) {
+      const wrapper = btn.closest('.rq-structure');
+      const content = wrapper.querySelector('.rq-compare');
+      const label   = btn.querySelector('.reveal-toggle-label');
+      const isHidden = content.hasAttribute('hidden');
+      if (isHidden) {
+        content.removeAttribute('hidden');
+        label.textContent = btn.dataset.labelHide;
+      } else {
+        content.setAttribute('hidden', '');
+        label.textContent = btn.dataset.labelShow;
+      }
+    }
 
     /* ─── Infographic toggle (mirrors reveal-toggle pattern) ─── */
     function toggleInfographic(btn) {
