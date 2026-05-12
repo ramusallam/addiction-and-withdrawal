@@ -221,6 +221,97 @@
       display: block;
     }
     .nt-row.endorphin .nt-structure .mol-svg { max-width: 460px; }
+
+    /* ─── Keyboard-triggered NT highlight ─── */
+    .nt-row {
+      transition: background 0.35s ease;
+      position: relative;
+    }
+    .nt-row .nt-title,
+    .nt-row .mol-svg {
+      transition: color 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+    }
+    .nt-row.nt-highlight {
+      background: linear-gradient(90deg, var(--hl-soft), transparent 70%);
+    }
+    .nt-row.nt-highlight .nt-title { color: var(--hl); }
+    .nt-row.nt-highlight .mol-svg {
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 18px var(--hl-glow)) drop-shadow(0 4px 14px var(--hl-glow));
+    }
+    .nt-row.nt-highlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-left: 4px solid var(--hl);
+      box-shadow:
+        inset 0 0 0 1px var(--hl-ring),
+        0 14px 36px -6px var(--hl-ring);
+      animation: nt-glow-in 1.8s ease-out;
+      z-index: 0;
+    }
+    @keyframes nt-glow-in {
+      0%   { opacity: 0; transform: scale(0.985); }
+      18%  { opacity: 1; transform: scale(1); }
+      75%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .nt-row[data-nt="glutamate"].nt-highlight {
+      --hl: #ef4444;
+      --hl-soft: rgba(239, 68, 68, 0.09);
+      --hl-glow: rgba(239, 68, 68, 0.45);
+      --hl-ring: rgba(239, 68, 68, 0.32);
+    }
+    .nt-row[data-nt="gaba"].nt-highlight {
+      --hl: #2563eb;
+      --hl-soft: rgba(59, 130, 246, 0.09);
+      --hl-glow: rgba(59, 130, 246, 0.45);
+      --hl-ring: rgba(59, 130, 246, 0.32);
+    }
+    .nt-row[data-nt="dopamine"].nt-highlight {
+      --hl: #d97706;
+      --hl-soft: rgba(245, 158, 11, 0.10);
+      --hl-glow: rgba(245, 158, 11, 0.50);
+      --hl-ring: rgba(245, 158, 11, 0.32);
+    }
+    .nt-row[data-nt="serotonin"].nt-highlight {
+      --hl: #16a34a;
+      --hl-soft: rgba(34, 197, 94, 0.09);
+      --hl-glow: rgba(34, 197, 94, 0.45);
+      --hl-ring: rgba(34, 197, 94, 0.32);
+    }
+    .nt-row[data-nt="endorphins"].nt-highlight {
+      --hl: #9333ea;
+      --hl-soft: rgba(168, 85, 247, 0.09);
+      --hl-glow: rgba(168, 85, 247, 0.45);
+      --hl-ring: rgba(168, 85, 247, 0.32);
+    }
+
+    .key-hint {
+      margin-top: 16px;
+      padding: 12px 18px;
+      background: var(--bgPanel);
+      border: 1px dashed var(--borderColor);
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--textMuted);
+      text-align: center;
+    }
+    .key-hint kbd {
+      display: inline-block;
+      padding: 1px 6px;
+      margin: 0 2px;
+      background: var(--bgMain);
+      border: 1px solid var(--borderColor);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.7rem;
+      color: var(--textSecondary);
+      box-shadow: 0 1px 0 var(--borderColor);
+    }
     .nt-caption {
       font-family: var(--font-sans);
       font-size: 0.72rem;
@@ -985,7 +1076,7 @@
         </button>
 
         <!-- ── Glutamate ── -->
-        <article class="nt-row">
+        <article class="nt-row" data-nt="glutamate">
           <div class="nt-name"><div class="nt-title">Glutamate</div></div>
           <div class="nt-structure">
             <svg class="mol-svg" data-smiles="N[C@@H](CCC(=O)O)C(=O)O" data-size="small" aria-label="Glutamate"></svg>
@@ -994,7 +1085,7 @@
         </article>
 
         <!-- ── GABA ── -->
-        <article class="nt-row">
+        <article class="nt-row" data-nt="gaba">
           <div class="nt-name"><div class="nt-title">GABA</div></div>
           <div class="nt-structure">
             <svg class="mol-svg" data-smiles="NCCCC(=O)O" data-size="small" aria-label="GABA"></svg>
@@ -1003,7 +1094,7 @@
         </article>
 
         <!-- ── Dopamine ── -->
-        <article class="nt-row">
+        <article class="nt-row" data-nt="dopamine">
           <div class="nt-name"><div class="nt-title">Dopamine</div></div>
           <div class="nt-structure">
             <svg class="mol-svg" data-smiles="NCCc1ccc(O)c(O)c1" data-size="small" aria-label="Dopamine"></svg>
@@ -1012,7 +1103,7 @@
         </article>
 
         <!-- ── Serotonin ── -->
-        <article class="nt-row">
+        <article class="nt-row" data-nt="serotonin">
           <div class="nt-name"><div class="nt-title">Serotonin</div></div>
           <div class="nt-structure">
             <svg class="mol-svg" data-smiles="NCCc1c[nH]c2ccc(O)cc12" data-size="small" aria-label="Serotonin"></svg>
@@ -1021,7 +1112,7 @@
         </article>
 
         <!-- ── Endorphins (Met-enkephalin: β-endorphin 1–5) ── -->
-        <article class="nt-row endorphin">
+        <article class="nt-row endorphin" data-nt="endorphins">
           <div class="nt-name"><div class="nt-title">Endorphins</div></div>
           <div class="nt-structure">
             <svg class="mol-svg" data-smiles="N[C@@H](Cc1ccc(O)cc1)C(=O)NCC(=O)NCC(=O)N[C@@H](Cc2ccccc2)C(=O)N[C@@H](CCSC)C(=O)O" data-size="large" aria-label="Met-enkephalin"></svg>
@@ -1030,6 +1121,14 @@
           <p class="nt-action"><strong>Blocks pain and brings relief.</strong> The body's natural pain-relievers. They reduce pain, create comfort or euphoria, and are released during stress, exercise, injury, laughter, or intense emotion.</p>
         </article>
 
+      </div>
+      <div class="key-hint">
+        Try the keys —
+        <kbd>↑</kbd> Glutamate
+        <kbd>↓</kbd> GABA
+        <kbd>→</kbd> Dopamine
+        <kbd>←</kbd> Serotonin
+        <kbd>Space</kbd> Endorphins
       </div>
     </section>
 
@@ -1431,6 +1530,84 @@
         label.textContent = btn.dataset.labelShow;
       }
     }
+
+    /* ─── Keyboard-triggered NT highlight + audio (Tab 1) ─── */
+    let _audioCtx = null;
+    function getAudio() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (_audioCtx.state === 'suspended') _audioCtx.resume();
+      return _audioCtx;
+    }
+    function tone(freq, when, dur, type, vol) {
+      const ctx = getAudio();
+      const t0 = ctx.currentTime + when;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type || 'sine';
+      osc.frequency.setValueAtTime(freq, t0);
+      gain.gain.setValueAtTime(0, t0);
+      gain.gain.linearRampToValueAtTime(vol, t0 + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.05);
+    }
+    const ntSounds = {
+      glutamate: () => {
+        /* Gas pedal — bright rising C5 → G5 */
+        tone(523.25, 0.00, 0.20, 'triangle', 0.22);
+        tone(783.99, 0.12, 0.45, 'triangle', 0.22);
+      },
+      gaba: () => {
+        /* Brake — soft descending G4 → C4 */
+        tone(392.00, 0.00, 0.32, 'sine', 0.28);
+        tone(261.63, 0.22, 0.60, 'sine', 0.28);
+      },
+      dopamine: () => {
+        /* Reward — major chord bell C5/E5/G5 */
+        tone(523.25, 0.00, 1.10, 'sine', 0.14);
+        tone(659.25, 0.00, 1.10, 'sine', 0.12);
+        tone(783.99, 0.00, 1.10, 'sine', 0.10);
+      },
+      serotonin: () => {
+        /* Mood — warm sustained A4 with overtone */
+        tone(440.00, 0.00, 1.20, 'sine', 0.26);
+        tone(880.00, 0.02, 1.00, 'sine', 0.08);
+      },
+      endorphins: () => {
+        /* Relief — deep D3 + A3 overtone */
+        tone(146.83, 0.00, 1.60, 'sine', 0.30);
+        tone(220.00, 0.00, 1.60, 'sine', 0.15);
+      },
+    };
+    const ntKey = {
+      'ArrowUp':    'glutamate',
+      'ArrowDown':  'gaba',
+      'ArrowRight': 'dopamine',
+      'ArrowLeft':  'serotonin',
+      ' ':          'endorphins',
+      'Spacebar':   'endorphins',
+    };
+    document.addEventListener('keydown', (e) => {
+      const nt = ntKey[e.key];
+      if (!nt) return;
+      const tab1 = document.getElementById('panel-neurotransmitters');
+      if (tab1.hidden) return;
+      // Don't steal arrow keys when overlay or any focused input is in play
+      if (!document.getElementById('simOverlay').hidden) return;
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      e.preventDefault();
+      const row = document.querySelector(`.nt-row[data-nt="${nt}"]`);
+      if (!row) return;
+      row.classList.remove('nt-highlight');
+      void row.offsetWidth; /* restart animation */
+      row.classList.add('nt-highlight');
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      ntSounds[nt]();
+      clearTimeout(row._htimer);
+      row._htimer = setTimeout(() => row.classList.remove('nt-highlight'), 1800);
+    });
 
     const tabs = document.querySelectorAll('.tab');
     const panels = {
