@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neuroscience of Withdrawal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Roboto+Mono:wght@400;700&family=Roboto+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/smiles-drawer@2.1.7/dist/smiles-drawer.min.js"></script>
+  <style>
+    :root {
+      --bgMain: #F7F3EE;
+      --bgPanel: #FFFFFF;
+      --bgCard:  #FFFFFF;
+      --bgSubtle: #FAFAF7;
+      --borderColor: #E5E7EB;
+      --borderSoft: #EFEAE2;
+
+      --textPrimary:   #111111;
+      --textSecondary: #555555;
+      --textMuted:     #9CA3AF;
+
+      --accentBlue:    #3b82f6;
+      --accentPurple:  #a855f7;
+      --accentGreen:   #22c55e;
+      --accentAmber:   #f59e0b;
+      --accentRed:     #ef4444;
+
+      --mol-stroke: #1f2937;
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Roboto Serif', Georgia, serif;
+      --font-mono: 'Roboto Mono', ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100vh; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bgMain);
+      color: var(--textPrimary);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ─────────────── Header ─────────────── */
+    header.topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bgPanel);
+      border-bottom: 1px solid var(--borderColor);
+    }
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 28px 0;
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .brand-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+      letter-spacing: -0.01em;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--textMuted);
+      font-weight: 600;
+    }
+    .tabs {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      appearance: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 14px 18px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--textSecondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .tab:hover { color: var(--textPrimary); }
+    .tab .num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      width: 22px; height: 22px;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      border-radius: 9999px;
+      background: var(--bgMain);
+      color: var(--textSecondary);
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .tab[aria-selected="true"] {
+      color: var(--textPrimary);
+      border-bottom-color: var(--accentBlue);
+    }
+    .tab[aria-selected="true"] .num {
+      background: var(--accentBlue);
+      color: #fff;
+    }
+
+    /* ─────────────── Page shell ─────────────── */
+    main.shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 28px 80px;
+    }
+    .panel {
+      animation: fadeUp 0.4s ease-out both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--textMuted);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+      letter-spacing: -0.015em;
+      margin-bottom: 8px;
+    }
+    .page-lede {
+      color: var(--textSecondary);
+      font-size: 1rem;
+      max-width: 56ch;
+      margin-bottom: 36px;
+    }
+
+    /* ─────────────── Neurotransmitter grid ─────────────── */
+    .nt-grid {
+      position: relative;
+      background: var(--bgCard);
+      border: 1px solid var(--borderColor);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .print-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      background: var(--bgPanel);
+      border: 1px solid var(--borderColor);
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--textSecondary);
+      cursor: pointer;
+      z-index: 4;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+    }
+    .print-btn:hover {
+      background: var(--accentBlue);
+      color: #fff;
+      border-color: var(--accentBlue);
+    }
+    .print-btn:active { transform: scale(0.94); }
+    .print-btn svg { width: 18px; height: 18px; }
+    .nt-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.85fr) minmax(280px, 1.6fr) minmax(240px, 1.7fr);
+      align-items: center;
+      gap: 28px;
+      padding: 32px 34px;
+      border-top: 1px solid var(--borderSoft);
+    }
+    .nt-row:first-child { border-top: none; }
+
+    .nt-name { display: flex; align-items: center; }
+    .nt-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.55rem;
+      letter-spacing: -0.01em;
+      color: var(--textPrimary);
+    }
+
+    .nt-structure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 4px;
+    }
+    .nt-structure .mol-svg {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+      display: block;
+    }
+    .nt-row.endorphin .nt-structure .mol-svg { max-width: 460px; }
+    .nt-caption {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      color: var(--textMuted);
+      font-style: italic;
+      letter-spacing: 0.01em;
+      text-align: center;
+    }
+
+    .nt-action {
+      color: var(--textSecondary);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+    .nt-action strong {
+      color: var(--textPrimary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 820px) {
+      .nt-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 24px 22px;
+      }
+      .nt-structure { justify-content: flex-start; padding: 4px 0; }
+      .nt-structure svg { max-width: 240px; }
+    }
+
+    /* ─────────────── Shortcut strip ─────────────── */
+    .shortcut {
+      margin-top: 40px;
+      background: var(--bgPanel);
+      border: 1px solid var(--borderColor);
+      border-radius: 18px;
+      padding: 30px 32px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .shortcut-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accentBlue);
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .shortcut-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .shortcut-list li {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+    .shortcut-list .key {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--textPrimary);
+      font-size: 1.1rem;
+    }
+    .shortcut-list .val {
+      color: var(--textSecondary);
+    }
+    @media (max-width: 560px) {
+      .shortcut-list li {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+    }
+
+    /* ─────────────── Clip section (Tab 2) ─────────────── */
+    .clip-section {
+      margin-top: 8px;
+    }
+    .clip-section + .clip-section {
+      margin-top: 56px;
+      padding-top: 56px;
+      border-top: 1px solid var(--borderColor);
+    }
+    .clip-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--textMuted);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .clip-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .clip-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+      letter-spacing: -0.015em;
+      color: var(--textPrimary);
+      margin: 0;
+    }
+    .drug-class {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    .drug-class.stimulant {
+      background: rgba(239, 68, 68, 0.10);
+      color: #991b1b;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    .drug-class.depressant {
+      background: rgba(59, 130, 246, 0.10);
+      color: #1e40af;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .drug-class.opioid {
+      background: rgba(168, 85, 247, 0.10);
+      color: #6b21a8;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+    .clip-prompt {
+      background: var(--bgCard);
+      border: 1px solid var(--borderColor);
+      border-left: 3px solid var(--accentBlue);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--textPrimary);
+    }
+    .clip-prompt strong {
+      font-weight: 700;
+      color: var(--accentBlue);
+    }
+    .reveal-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      background: var(--accentBlue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 9px 18px;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.1s ease;
+      font-family: var(--font-sans);
+      letter-spacing: 0.01em;
+    }
+    .reveal-toggle:hover { background: #2563eb; }
+    .reveal-toggle:active { transform: scale(0.97); }
+    .reveal-toggle svg { width: 16px; height: 16px; }
+    .reveal-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--borderColor);
+      animation: fadeUp 0.35s ease-out;
+    }
+    .reveal-image {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bgMain);
+      aspect-ratio: 16 / 10;
+      border: 1px solid var(--borderColor);
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease;
+    }
+    .reveal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .reveal-image[data-state="hidden"] img,
+    .reveal-image[data-state="hidden"] .img-fallback {
+      display: none;
+    }
+    .reveal-image[data-state="shown"] .image-placeholder { display: none; }
+    .reveal-image[data-state="hidden"]:hover {
+      border-color: var(--accentBlue);
+      background: rgba(59, 130, 246, 0.05);
+    }
+    .image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 18px;
+      text-align: center;
+      color: var(--textSecondary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+    }
+    .image-placeholder svg { width: 28px; height: 28px; color: var(--accentBlue); }
+    .image-placeholder small {
+      font-size: 0.7rem;
+      color: var(--textMuted);
+      font-weight: 500;
+    }
+    .reveal-image .img-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 18px;
+      text-align: center;
+      color: var(--textMuted);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .reveal-image .img-fallback code {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--bgPanel);
+      border: 1px solid var(--borderColor);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: var(--textSecondary);
+    }
+    .reveal-image.has-img .img-fallback { display: none; }
+    .answer-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .answer-pill {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 9999px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #166534;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+    .reveal-text h4 {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0 0 8px;
+      color: var(--accentBlue);
+      letter-spacing: -0.005em;
+    }
+    .reveal-text p {
+      color: var(--textSecondary);
+      font-size: 0.94rem;
+      line-height: 1.6;
+      margin: 0 0 10px;
+    }
+    .reveal-text p:last-child { margin-bottom: 0; }
+    .reveal-text strong {
+      color: var(--textPrimary);
+      font-weight: 700;
+    }
+    @media (max-width: 720px) {
+      .reveal-content { grid-template-columns: 1fr; }
+    }
+    .clip-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    }
+    .clip-frame iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* ─────────────── Print: Tab 1 onto a single sheet ─────────────── */
+    @media print {
+      @page { size: letter portrait; margin: 0.55in; }
+      html, body {
+        background: #fff !important;
+        color: #000 !important;
+        margin: 0;
+        padding: 0;
+        height: auto;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      header.topbar,
+      .print-btn,
+      #panel-withdrawal { display: none !important; }
+      main.shell {
+        padding: 0 !important;
+        max-width: 100% !important;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      #panel-neurotransmitters {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        animation: none !important;
+      }
+      .nt-grid {
+        flex: 1;
+        display: flex !important;
+        flex-direction: column;
+        border: 1px solid #d4d4d4 !important;
+        border-radius: 10px !important;
+        box-shadow: none !important;
+        overflow: hidden;
+        page-break-inside: avoid;
+      }
+      .nt-row {
+        flex: 1;
+        align-items: center;
+        padding: 18px 28px !important;
+        gap: 22px !important;
+        grid-template-columns: 110px minmax(220px, 1fr) 1.35fr !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        border-top: 1px solid #e5e5e5 !important;
+      }
+      .nt-row:first-of-type { border-top: none !important; }
+      .nt-row.endorphin { flex: 1.15; }
+      .nt-title {
+        font-size: 1.05rem !important;
+        font-weight: 700;
+        color: #000 !important;
+      }
+      .nt-structure { padding: 0 !important; gap: 4px !important; }
+      .nt-structure .mol-svg {
+        max-width: 240px !important;
+        max-height: 130px !important;
+      }
+      .nt-row.endorphin .nt-structure .mol-svg {
+        max-width: 360px !important;
+        max-height: 140px !important;
+      }
+      .nt-caption {
+        font-size: 0.6rem !important;
+        color: #555 !important;
+      }
+      .nt-action {
+        font-size: 0.82rem !important;
+        line-height: 1.4 !important;
+        color: #000 !important;
+      }
+      .nt-action strong { color: #000 !important; font-weight: 700; }
+    }
+
+    /* ─────────────── Coming-soon stub ─────────────── */
+    .stub {
+      background: var(--bgCard);
+      border: 1px dashed var(--borderColor);
+      border-radius: 18px;
+      padding: 60px 30px;
+      text-align: center;
+      color: var(--textMuted);
+    }
+    .stub-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--accentBlue);
+    }
+    .stub-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--textPrimary);
+      margin-bottom: 8px;
+    }
+    .stub-text {
+      color: var(--textSecondary);
+      max-width: 50ch;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────────────── Header / Tabs ─────────────────────── -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <h1 class="brand-title">Neuroscience of Withdrawal</h1>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Course sections">
+        <button class="tab" role="tab" aria-selected="true"  data-tab="neurotransmitters">
+          <span class="num">1</span> Neurotransmitters
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="withdrawal">
+          <span class="num">2</span> Withdrawal
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ─────────────────────── Main ─────────────────────── -->
+  <main class="shell">
+
+    <!-- ============ TAB 1 ============ -->
+    <section class="panel" id="panel-neurotransmitters" role="tabpanel">
+
+      <div class="nt-grid">
+        <button class="print-btn" type="button" onclick="window.print()" aria-label="Print this page" title="Print as one-sheet handout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+        </button>
+
+        <!-- ── Glutamate ── -->
+        <article class="nt-row">
+          <div class="nt-name"><div class="nt-title">Glutamate</div></div>
+          <div class="nt-structure">
+            <svg class="mol-svg" data-smiles="N[C@@H](CCC(=O)O)C(=O)O" data-size="small" aria-label="Glutamate"></svg>
+          </div>
+          <p class="nt-action"><strong>The gas pedal.</strong> The brain's principal excitatory neurotransmitter. It increases neuron activity and underlies learning, memory, thinking, and the formation of new connections between neurons.</p>
+        </article>
+
+        <!-- ── GABA ── -->
+        <article class="nt-row">
+          <div class="nt-name"><div class="nt-title">GABA</div></div>
+          <div class="nt-structure">
+            <svg class="mol-svg" data-smiles="NCCCC(=O)O" data-size="small" aria-label="GABA"></svg>
+          </div>
+          <p class="nt-action"><strong>The brake.</strong> The brain's principal inhibitory neurotransmitter. It slows neuron activity and supports calmness, relaxation, sleep, anxiety reduction, and protection from overstimulation.</p>
+        </article>
+
+        <!-- ── Dopamine ── -->
+        <article class="nt-row">
+          <div class="nt-name"><div class="nt-title">Dopamine</div></div>
+          <div class="nt-structure">
+            <svg class="mol-svg" data-smiles="NCCc1ccc(O)c(O)c1" data-size="small" aria-label="Dopamine"></svg>
+          </div>
+          <p class="nt-action"><strong>Says "do that again."</strong> Involved in reward, motivation, pleasure, learning, attention, movement, and reinforcement. It tags an experience as worth repeating.</p>
+        </article>
+
+        <!-- ── Serotonin ── -->
+        <article class="nt-row">
+          <div class="nt-name"><div class="nt-title">Serotonin</div></div>
+          <div class="nt-structure">
+            <svg class="mol-svg" data-smiles="NCCc1c[nH]c2ccc(O)cc12" data-size="small" aria-label="Serotonin"></svg>
+          </div>
+          <p class="nt-action"><strong>Steadies mood and rhythms.</strong> Helps regulate mood, anxiety, sleep, appetite, digestion, pain sensitivity, and the felt sense of well-being.</p>
+        </article>
+
+        <!-- ── Endorphins (Met-enkephalin: β-endorphin 1–5) ── -->
+        <article class="nt-row endorphin">
+          <div class="nt-name"><div class="nt-title">Endorphins</div></div>
+          <div class="nt-structure">
+            <svg class="mol-svg" data-smiles="N[C@@H](Cc1ccc(O)cc1)C(=O)NCC(=O)NCC(=O)N[C@@H](Cc2ccccc2)C(=O)N[C@@H](CCSC)C(=O)O" data-size="large" aria-label="Met-enkephalin"></svg>
+            <div class="nt-caption">Met-enkephalin · β-endorphin (1–5)</div>
+          </div>
+          <p class="nt-action"><strong>Blocks pain and brings relief.</strong> The body's natural pain-relievers. They reduce pain, create comfort or euphoria, and are released during stress, exercise, injury, laughter, or intense emotion.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ TAB 2 ============ -->
+    <section class="panel" id="panel-withdrawal" role="tabpanel" hidden>
+      <!-- ── Clip 1: Methamphetamine ── -->
+      <article class="clip-section">
+        <div class="clip-eyebrow">Clip 01</div>
+        <div class="clip-title-row">
+          <h3 class="clip-title">Methamphetamine</h3>
+          <span class="drug-class stimulant">Stimulant</span>
+        </div>
+        <div class="clip-prompt">
+          <div><strong>After watching the clip below,</strong> what neurotransmitters are disrupted during methamphetamine use and withdrawal?</div>
+          <button class="reveal-toggle" type="button" onclick="toggleReveal(this)" data-label-show="Click for reveal" data-label-hide="Hide reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="reveal-toggle-label">Click for reveal</span>
+          </button>
+          <div class="reveal-content" hidden>
+            <div class="reveal-image" data-state="hidden" onclick="toggleImage(this)" role="button" tabindex="0" aria-label="Reveal clip image">
+              <img src="images/methamphetamine.jpg" alt="Methamphetamine still frame" onerror="this.style.display='none'">
+              <div class="img-fallback">
+                Drop image here:<br><code>images/methamphetamine.jpg</code>
+              </div>
+              <div class="image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Click to reveal clip frame
+                <small>(play the video first)</small>
+              </div>
+            </div>
+            <div class="reveal-text">
+              <div class="answer-pills"><span class="answer-pill">Dopamine</span></div>
+              <h4>Reverse-engineering the answer</h4>
+              <p>In the <em>Beautiful Boy</em> clip, Timothée Chalamet (playing Nic Sheff) shows apathy, exhaustion, anger, and a complete loss of motivation. The reward, drive, and "do that again" signal are gone.</p>
+              <p>Dopamine is the neurotransmitter that produces motivation, pleasure, and the urge to repeat rewarding behavior. Seeing the exact opposite on screen points us back to <strong>dopamine</strong> as the disrupted system.</p>
+              <p>That state is the body's compensation for chronic methamphetamine use. Meth forces abnormally massive dopamine release into the synapse, and the brain protects itself by downregulating receptors and depleting reserves. When the drug is gone, no natural dopamine signal is left, and the reward system runs empty.</p>
+            </div>
+          </div>
+        </div>
+        <div class="clip-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/EPnxYyMoPPI?rel=0&modestbranding=1"
+            title="Methamphetamine clip"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </article>
+
+      <!-- ── Clip 2: Heroin ── -->
+      <article class="clip-section">
+        <div class="clip-eyebrow">Clip 02</div>
+        <div class="clip-title-row">
+          <h3 class="clip-title">Heroin</h3>
+          <span class="drug-class opioid">Opioid</span>
+        </div>
+        <div class="clip-prompt">
+          <div><strong>After watching the clip below,</strong> what neurotransmitters are disrupted during heroin use and withdrawal?</div>
+          <button class="reveal-toggle" type="button" onclick="toggleReveal(this)" data-label-show="Click for reveal" data-label-hide="Hide reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="reveal-toggle-label">Click for reveal</span>
+          </button>
+          <div class="reveal-content" hidden>
+            <div class="reveal-image" data-state="hidden" onclick="toggleImage(this)" role="button" tabindex="0" aria-label="Reveal clip image">
+              <img src="images/heroin.jpg" alt="Heroin still frame" onerror="this.style.display='none'">
+              <div class="img-fallback">
+                Drop image here:<br><code>images/heroin.jpg</code>
+              </div>
+              <div class="image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Click to reveal clip frame
+                <small>(play the video first)</small>
+              </div>
+            </div>
+            <div class="reveal-text">
+              <div class="answer-pills"><span class="answer-pill">Endorphins</span></div>
+              <h4>Reverse-engineering the answer</h4>
+              <p>In the <em>Basketball Diaries</em> clip, Leonardo DiCaprio (playing Jim Carroll) is in pain, sickness, anxiety, and rage. He is the exact opposite of euphoric or comfortable.</p>
+              <p>Endorphins are the body's natural pain-relievers and source of euphoria. Seeing pain plus anxiety plus rage on screen points us back to a disrupted <strong>endorphin</strong> system.</p>
+              <p>That state is the body's compensation for chronic heroin use. Heroin binds μ-opioid receptors far more powerfully than the body's own endorphins, so the body protects itself by downregulating those receptors and cutting its own endorphin production. These receptors are not only in the brain. They run throughout the <strong>peripheral nervous system</strong> along every pain pathway, which is why heroin's effects on <strong>GABA</strong> and <strong>dopamine</strong> ride along both centrally and peripherally. Dropping pain and producing euphoria during injury, escape, or childbirth is an evolutionary survival mechanism, and heroin hijacks all of it. That is why withdrawal hurts everywhere at once, not just in the mind.</p>
+            </div>
+          </div>
+        </div>
+        <div class="clip-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/ZI7ir70Rt1s?rel=0&modestbranding=1"
+            title="Heroin clip"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </article>
+
+      <!-- ── Clip 3: Alcohol ── -->
+      <article class="clip-section">
+        <div class="clip-eyebrow">Clip 03</div>
+        <div class="clip-title-row">
+          <h3 class="clip-title">Alcohol</h3>
+          <span class="drug-class depressant">Depressant</span>
+        </div>
+        <div class="clip-prompt">
+          <div><strong>After watching the clip below,</strong> what neurotransmitters are disrupted during alcohol use and withdrawal?</div>
+          <button class="reveal-toggle" type="button" onclick="toggleReveal(this)" data-label-show="Click for reveal" data-label-hide="Hide reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="reveal-toggle-label">Click for reveal</span>
+          </button>
+          <div class="reveal-content" hidden>
+            <div class="reveal-image" data-state="hidden" onclick="toggleImage(this)" role="button" tabindex="0" aria-label="Reveal clip image">
+              <img src="images/alcohol.jpg" alt="Alcohol still frame" onerror="this.style.display='none'">
+              <div class="img-fallback">
+                Drop image here:<br><code>images/alcohol.jpg</code>
+              </div>
+              <div class="image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Click to reveal clip frame
+                <small>(play the video first)</small>
+              </div>
+            </div>
+            <div class="reveal-text">
+              <div class="answer-pills">
+                <span class="answer-pill">GABA</span>
+                <span class="answer-pill">Glutamate</span>
+              </div>
+              <h4>Reverse-engineering the answer</h4>
+              <p>In the <em>Leaving Las Vegas</em> clip, Nicolas Cage (playing Ben Sanderson) is in uncontrolled excitation, almost seizure-like. The brain is over-firing.</p>
+              <p>GABA is the brake and glutamate is the gas. Uncontrolled excitation means the brake has failed AND the gas is floored. That points us back to a collapse of <strong>GABA</strong> tone and a rebound of <strong>glutamate</strong> activity.</p>
+              <p>That state is the body's compensation for chronic alcohol use. Alcohol boosts GABA and blocks glutamate, so the body adapts by turning down its GABA receptors and ramping up its glutamate signaling. When the alcohol is removed, those adaptations are unmasked. The result is tremors, anxiety, hallucinations, seizures, and in severe cases delirium tremens, which can be fatal.</p>
+            </div>
+          </div>
+        </div>
+        <div class="clip-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/nVCHtzOCeqU?rel=0&modestbranding=1"
+            title="Alcohol clip"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <script>
+    /* ─── SmilesDrawer: render all molecule SVGs ─── */
+    (function renderMolecules() {
+      if (typeof SmilesDrawer === 'undefined') return;
+      const sparkTheme = {
+        C:  '#1f2937',
+        N:  '#1d4ed8',
+        O:  '#b91c1c',
+        S:  '#b45309',
+        P:  '#a16207',
+        F:  '#16a34a',
+        CL: '#16a34a',
+        BR: '#7c3aed',
+        I:  '#9333ea',
+        BACKGROUND: 'transparent'
+      };
+      const baseOpts = {
+        bondThickness: 1.1,
+        shortBondLength: 0.85,
+        bondSpacing: 0.18 * 14,
+        atomVisualization: 'default',
+        isomeric: false,
+        terminalCarbons: false,
+        explicitHydrogens: false,
+        compactDrawing: false,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        fontSizeLarge: 12,
+        fontSizeSmall: 10,
+        themes: { spark: sparkTheme }
+      };
+      const drawerSmall = new SmilesDrawer.SvgDrawer({ ...baseOpts, width: 340, height: 180, bondLength: 24 });
+      const drawerLarge = new SmilesDrawer.SvgDrawer({ ...baseOpts, width: 720, height: 280, bondLength: 18 });
+
+      document.querySelectorAll('.mol-svg').forEach((el) => {
+        const smiles = el.dataset.smiles;
+        const drawer = el.dataset.size === 'large' ? drawerLarge : drawerSmall;
+        SmilesDrawer.parse(smiles, (tree) => {
+          drawer.draw(tree, el, 'spark');
+        }, (err) => console.error('SMILES parse failed for', smiles, err));
+      });
+    })();
+
+    /* ─── Reveal toggle (clip prompts) ─── */
+    function toggleReveal(btn) {
+      const prompt  = btn.closest('.clip-prompt');
+      const content = prompt.querySelector('.reveal-content');
+      const label   = btn.querySelector('.reveal-toggle-label');
+      const isHidden = content.hasAttribute('hidden');
+      if (isHidden) {
+        content.removeAttribute('hidden');
+        label.textContent = btn.dataset.labelHide;
+      } else {
+        content.setAttribute('hidden', '');
+        label.textContent = btn.dataset.labelShow;
+      }
+    }
+
+    /* ─── Click-to-reveal clip image (independent of text reveal) ─── */
+    function toggleImage(box) {
+      const state = box.getAttribute('data-state');
+      box.setAttribute('data-state', state === 'hidden' ? 'shown' : 'hidden');
+    }
+
+    const tabs = document.querySelectorAll('.tab');
+    const panels = {
+      neurotransmitters: document.getElementById('panel-neurotransmitters'),
+      withdrawal:       document.getElementById('panel-withdrawal'),
+    };
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+        Object.entries(panels).forEach(([k, el]) => {
+          if (k === target) {
+            el.hidden = false;
+            el.style.animation = 'none';
+            // force reflow to restart fade
+            void el.offsetWidth;
+            el.style.animation = '';
+          } else {
+            el.hidden = true;
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
