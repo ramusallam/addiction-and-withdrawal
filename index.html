@@ -499,6 +499,43 @@
       text-align: center;
       padding: 18px;
     }
+    .infographic-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--borderColor);
+      cursor: zoom-in;
+      transition: box-shadow 0.18s ease;
+    }
+    .infographic-image:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .infographic-zoom-hint {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      color: var(--textMuted);
+      font-style: italic;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .infographic-credit {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--textMuted);
+      text-align: center;
+      margin-top: 4px;
+    }
+    /* Image variant of sim-overlay: contain the image instead of stretching */
+    .sim-overlay-content img.expanded-img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #fff;
+    }
 
     /* ─────────────── Reflection (Tab 4) ─────────────── */
     .reflection-list {
@@ -1129,11 +1166,7 @@
           <div class="mech-col">
             <div class="mech-eyebrow">Student Simulation</div>
             <div class="mech-embed sim-embed">
-              <div class="placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                <div class="ph-label">Student simulation</div>
-                <div class="ph-hint">Drop a Vercel link, iframe, or HTML file here. Click expand to play full screen.</div>
-              </div>
+              <iframe src="https://enchanting-pony-cfd3ed.netlify.app/" title="Fentanyl synapse simulation" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
               <button class="expand-btn" type="button" onclick="expandSim(this)" aria-label="Expand simulation">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 Expand
@@ -1143,18 +1176,16 @@
           <div class="mech-col">
             <div class="mech-eyebrow">Mechanism of Action — Student Video</div>
             <div class="mech-embed video-embed">
-              <div class="placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                <div class="ph-label">Student-made explainer video</div>
-                <div class="ph-hint">Paste a YouTube or Drive embed URL here.</div>
-              </div>
+              <iframe src="https://drive.google.com/file/d/1pPDCGi3ogHhArM2yM5d-wTFtp-UxGopS/preview" title="Fentanyl mechanism student video" loading="lazy" allow="autoplay" allowfullscreen></iframe>
             </div>
             <button class="reveal-toggle infographic-toggle" type="button" onclick="toggleInfographic(this)" data-label-show="Click for infographic summary" data-label-hide="Hide infographic">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               <span class="reveal-toggle-label">Click for infographic summary</span>
             </button>
             <div class="infographic-content" hidden>
-              <div class="placeholder-img">Infographic placeholder — drop image, PDF, or HTML embed for the Fentanyl mechanism summary.</div>
+              <img class="infographic-image" src="images/fentanyl-infographic.jpg" alt="Student infographic: How Fentanyl affects the synapse" onclick="expandImage(this)">
+              <div class="infographic-zoom-hint">Click to enlarge</div>
+              <div class="infographic-credit">By Francesca, Derek, Arman, Cooper</div>
             </div>
           </div>
         </div>
@@ -1236,7 +1267,8 @@
               <span class="reveal-toggle-label">Click for infographic summary</span>
             </button>
             <div class="infographic-content" hidden>
-              <div class="placeholder-img">Infographic placeholder — drop image, PDF, or HTML embed for the Alcohol mechanism summary.</div>
+              <img class="infographic-image" src="images/alcohol-infographic.png" alt="Ethanol's impact on brain equilibrium: from sedation to addiction" onclick="expandImage(this)">
+              <div class="infographic-zoom-hint">Click to enlarge</div>
             </div>
           </div>
         </div>
@@ -1457,6 +1489,17 @@
       const overlay = document.getElementById('simOverlay');
       overlay.hidden = true;
       document.body.style.overflow = '';
+    }
+    function expandImage(img) {
+      const overlay = document.getElementById('simOverlay');
+      const content = document.getElementById('simOverlayContent');
+      content.innerHTML = '';
+      const clone = img.cloneNode(true);
+      clone.classList.add('expanded-img');
+      clone.removeAttribute('onclick');
+      content.appendChild(clone);
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeSim();
