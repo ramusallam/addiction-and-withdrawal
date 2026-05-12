@@ -500,6 +500,79 @@
       padding: 18px;
     }
 
+    /* ─────────────── Reflection (Tab 4) ─────────────── */
+    .reflection-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .rq-card {
+      position: relative;
+      background: var(--bgCard);
+      border: 1px solid var(--borderColor);
+      border-left: 3px solid var(--accentBlue);
+      border-radius: 14px;
+      padding: 26px 30px 28px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      animation: fadeUp 0.4s ease-out both;
+    }
+    .rq-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accentBlue);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .rq-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+      line-height: 1.55;
+      color: var(--textPrimary);
+      letter-spacing: -0.005em;
+    }
+    .rq-text strong { font-weight: 700; color: var(--textPrimary); }
+    .rq-hint {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--textMuted);
+      font-style: italic;
+      margin-top: 14px;
+    }
+    .rq-structures {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--borderSoft);
+    }
+    @media (max-width: 640px) {
+      .rq-structures { grid-template-columns: 1fr; gap: 22px; }
+    }
+    .rq-structure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 6px;
+    }
+    .rq-structure-label {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--textPrimary);
+    }
+    .rq-structure .mol-svg {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+    }
+
     /* ─────────────── Fullscreen simulation overlay ─────────────── */
     .sim-overlay {
       position: fixed;
@@ -1190,12 +1263,39 @@
 
     </section>
 
-    <!-- ============ TAB 4 — Reflection (stub) ============ -->
+    <!-- ============ TAB 4 — Reflection ============ -->
     <section class="panel" id="panel-reflection" role="tabpanel" hidden>
-      <div class="stub">
-        <div class="stub-label">Coming next</div>
-        <div class="stub-title">Reflection</div>
-        <p class="stub-text">Space for student reflection prompts and responses. Tell me what you want here and I'll build it.</p>
+      <div class="reflection-list">
+
+        <!-- Q1: Alcohol withdrawal fatality -->
+        <article class="rq-card">
+          <div class="rq-eyebrow">Question 01</div>
+          <p class="rq-text">Of the addictive substances presented, only withdrawal from <strong>alcohol</strong> can be fatal. Based on what you learned about the neurotransmitters involved in withdrawal, hypothesize a reason for this.</p>
+        </article>
+
+        <!-- Q2: Receptor downregulation vs. neurotransmitter regulation -->
+        <article class="rq-card">
+          <div class="rq-eyebrow">Question 02</div>
+          <p class="rq-text">Continued exposure to an addictive substance like methamphetamine leads to <strong>tolerance</strong>. The body senses an abnormal increase in the neurotransmitter involved and, rather than reducing the neurotransmitter itself, the body decreases production of the <strong>receptors</strong> that the transmitter binds to. Sensitivity drops, and more and more of the drug is required to reach the same state. Hypothesize why the body responds by lowering receptor sensitivity instead of lowering neurotransmitter production directly.</p>
+        </article>
+
+        <!-- Q3: Why meth + MDMA both release AND block reuptake -->
+        <article class="rq-card">
+          <div class="rq-eyebrow">Question 03</div>
+          <p class="rq-text">Of the drugs whose mechanisms were shown in Tab 3, <strong>methamphetamine</strong> and <strong>MDMA</strong> are the only substances that not only block reuptake of their neurotransmitter, but actively push more of that neurotransmitter into the synapse itself. Hypothesize a reason for this, looking at the two structures below.</p>
+          <div class="rq-hint">Hint: compare the skeletons. What do they share, and what differs?</div>
+          <div class="rq-structures">
+            <div class="rq-structure">
+              <div class="rq-structure-label">Methamphetamine</div>
+              <svg class="mol-svg" data-smiles="CC(NC)Cc1ccccc1" data-size="small" aria-label="Methamphetamine"></svg>
+            </div>
+            <div class="rq-structure">
+              <div class="rq-structure-label">MDMA</div>
+              <svg class="mol-svg" data-smiles="CC(NC)Cc1ccc2c(c1)OCO2" data-size="small" aria-label="MDMA"></svg>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
