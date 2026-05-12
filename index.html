@@ -393,12 +393,13 @@
     .reveal-toggle svg { width: 16px; height: 16px; }
     .reveal-content {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 24px;
       margin-top: 18px;
       padding-top: 18px;
       border-top: 1px solid var(--borderColor);
       animation: fadeUp 0.35s ease-out;
+      align-items: start;
     }
     .reveal-content[hidden] { display: none !important; }
     .reveal-image {
@@ -406,7 +407,7 @@
       border-radius: 12px;
       overflow: hidden;
       background: var(--bgMain);
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 3;
       border: 1px solid var(--borderColor);
     }
     .reveal-image img {
@@ -513,7 +514,8 @@
       }
       header.topbar,
       .print-btn,
-      #panel-withdrawal { display: none !important; }
+      #panel-withdrawal,
+      #panel-simulations { display: none !important; }
       main.shell {
         padding: 0 !important;
         max-width: 100% !important;
@@ -621,6 +623,9 @@
         <button class="tab" role="tab" aria-selected="false" data-tab="withdrawal">
           <span class="num">2</span> Withdrawal
         </button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="simulations">
+          <span class="num">3</span> Simulations
+        </button>
       </nav>
     </div>
   </header>
@@ -699,7 +704,7 @@
           <span class="drug-class stimulant">Stimulant</span>
         </div>
         <div class="clip-prompt">
-          <div><strong>After watching the clip below,</strong> what neurotransmitters are disrupted during methamphetamine use and withdrawal?</div>
+          <div><strong>After watching the clip below,</strong> what neurotransmitter(s) are disrupted during methamphetamine use and withdrawal?</div>
           <button class="reveal-toggle" type="button" onclick="toggleReveal(this)" data-label-show="Click for reveal" data-label-hide="Hide reveal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <span class="reveal-toggle-label">Click for reveal</span>
@@ -714,9 +719,7 @@
             <div class="reveal-text">
               <div class="answer-pills"><span class="answer-pill">Dopamine</span></div>
               <h4>Reverse-engineering the answer</h4>
-              <p>In the <em>Beautiful Boy</em> clip, Timothée Chalamet (playing Nic Sheff) shows apathy, exhaustion, anger, and a complete loss of motivation. The reward, drive, and "do that again" signal are gone.</p>
-              <p>Dopamine is the neurotransmitter that produces motivation, pleasure, and the urge to repeat rewarding behavior. Seeing the exact opposite on screen points us back to <strong>dopamine</strong> as the disrupted system.</p>
-              <p>That state is the body's compensation for chronic methamphetamine use. Meth forces abnormally massive dopamine release into the synapse, and the brain protects itself by downregulating receptors and depleting reserves. When the drug is gone, no natural dopamine signal is left, and the reward system runs empty.</p>
+              <p>In the <em>Beautiful Boy</em> clip, Timothée Chalamet (playing Nic Sheff) shows apathy, exhaustion, anger, and a complete loss of motivation, the opposite of what <strong>dopamine</strong> normally produces. That points us back to dopamine as the disrupted system. Meth forces abnormally massive dopamine release, and the brain protects itself by downregulating receptors and depleting reserves. When the drug is gone, no natural dopamine signal is left, and the reward system runs empty.</p>
             </div>
           </div>
         </div>
@@ -739,7 +742,7 @@
           <span class="drug-class opioid">Opioid</span>
         </div>
         <div class="clip-prompt">
-          <div><strong>After watching the clip below,</strong> what neurotransmitters are disrupted during heroin use and withdrawal?</div>
+          <div><strong>After watching the clip below,</strong> what neurotransmitter(s) are disrupted during heroin use and withdrawal?</div>
           <button class="reveal-toggle" type="button" onclick="toggleReveal(this)" data-label-show="Click for reveal" data-label-hide="Hide reveal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <span class="reveal-toggle-label">Click for reveal</span>
@@ -754,9 +757,7 @@
             <div class="reveal-text">
               <div class="answer-pills"><span class="answer-pill">Endorphins</span></div>
               <h4>Reverse-engineering the answer</h4>
-              <p>In the <em>Basketball Diaries</em> clip, Leonardo DiCaprio (playing Jim Carroll) is in pain, sickness, anxiety, and rage. He is the exact opposite of euphoric or comfortable.</p>
-              <p>Endorphins are the body's natural pain-relievers and source of euphoria. Seeing pain plus anxiety plus rage on screen points us back to a disrupted <strong>endorphin</strong> system.</p>
-              <p>That state is the body's compensation for chronic heroin use. Heroin binds μ-opioid receptors far more powerfully than the body's own endorphins, so the body protects itself by downregulating those receptors and cutting its own endorphin production. These receptors are not only in the brain. They run throughout the <strong>peripheral nervous system</strong> along every pain pathway, which is why heroin's effects on <strong>GABA</strong> and <strong>dopamine</strong> ride along both centrally and peripherally. Dropping pain and producing euphoria during injury, escape, or childbirth is an evolutionary survival mechanism, and heroin hijacks all of it. That is why withdrawal hurts everywhere at once, not just in the mind.</p>
+              <p>In the <em>Basketball Diaries</em> clip, Leonardo DiCaprio (playing Jim Carroll) is in pain, sickness, anxiety, and rage, the opposite of the euphoric, pain-free state <strong>endorphins</strong> normally provide. Heroin's effect is not confined to the brain: μ-opioid receptors run throughout the <strong>peripheral nervous system</strong> along every pain pathway, an evolutionary survival mechanism for injury, escape, or childbirth that heroin hijacks, pulling <strong>GABA</strong> and <strong>dopamine</strong> along both centrally and peripherally. That is why withdrawal hurts everywhere at once, not just in the mind.</p>
             </div>
           </div>
         </div>
@@ -779,7 +780,7 @@
           <span class="drug-class depressant">Depressant</span>
         </div>
         <div class="clip-prompt">
-          <div><strong>After watching the clip below,</strong> what neurotransmitters are disrupted during alcohol use and withdrawal?</div>
+          <div><strong>After watching the clip below,</strong> what neurotransmitter(s) are disrupted during alcohol use and withdrawal?</div>
           <button class="reveal-toggle" type="button" onclick="toggleReveal(this)" data-label-show="Click for reveal" data-label-hide="Hide reveal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <span class="reveal-toggle-label">Click for reveal</span>
@@ -797,9 +798,7 @@
                 <span class="answer-pill">Glutamate</span>
               </div>
               <h4>Reverse-engineering the answer</h4>
-              <p>In the <em>Leaving Las Vegas</em> clip, Nicolas Cage (playing Ben Sanderson) is in uncontrolled excitation, almost seizure-like. The brain is over-firing.</p>
-              <p>GABA is the brake and glutamate is the gas. Uncontrolled excitation means the brake has failed AND the gas is floored. That points us back to a collapse of <strong>GABA</strong> tone and a rebound of <strong>glutamate</strong> activity.</p>
-              <p>That state is the body's compensation for chronic alcohol use. Alcohol boosts GABA and blocks glutamate, so the body adapts by turning down its GABA receptors and ramping up its glutamate signaling. When the alcohol is removed, those adaptations are unmasked. The result is tremors, anxiety, hallucinations, seizures, and in severe cases delirium tremens, which can be fatal.</p>
+              <p>In the <em>Leaving Las Vegas</em> clip, Nicolas Cage (playing Ben Sanderson) is in uncontrolled excitation, almost seizure-like. <strong>GABA</strong> is the brake and <strong>glutamate</strong> is the gas, so over-firing points us back to a collapse of GABA tone and a rebound of glutamate activity. Alcohol boosts GABA and blocks glutamate, so the body adapts by turning down its GABA receptors and ramping up its glutamate signaling. When the alcohol is removed, those adaptations are unmasked: tremors, anxiety, hallucinations, seizures, and in severe cases delirium tremens, which can be fatal.</p>
             </div>
           </div>
         </div>
@@ -813,6 +812,15 @@
             referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
       </article>
+    </section>
+
+    <!-- ============ TAB 3 (stub) ============ -->
+    <section class="panel" id="panel-simulations" role="tabpanel" hidden>
+      <div class="stub">
+        <div class="stub-label">Coming next</div>
+        <div class="stub-title">Simulations</div>
+        <p class="stub-text">Step-by-step simulations of how each drug hijacks the synapse: methamphetamine forcing dopamine into the cleft, heroin binding μ-opioid receptors, alcohol modulating GABA and glutamate channels.</p>
+      </div>
     </section>
 
   </main>
@@ -878,6 +886,7 @@
     const panels = {
       neurotransmitters: document.getElementById('panel-neurotransmitters'),
       withdrawal:       document.getElementById('panel-withdrawal'),
+      simulations:      document.getElementById('panel-simulations'),
     };
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
