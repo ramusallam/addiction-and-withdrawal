@@ -356,6 +356,208 @@
       color: #6b21a8;
       border: 1px solid rgba(168, 85, 247, 0.35);
     }
+    .drug-class.empathogen {
+      background: rgba(245, 158, 11, 0.10);
+      color: #92400e;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    /* ─────────────── Mechanisms (Tab 3) ─────────────── */
+    .mech-section {
+      margin-top: 8px;
+      padding: 28px 30px;
+      background: var(--bgCard);
+      border: 1px solid var(--borderColor);
+      border-radius: 18px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .mech-section + .mech-section { margin-top: 24px; }
+    .mech-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .mech-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      letter-spacing: -0.015em;
+      color: var(--textPrimary);
+      margin: 0;
+    }
+    .mech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .mech-grid { grid-template-columns: 1fr; }
+    }
+    .mech-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--textMuted);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .mech-embed {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: var(--bgMain);
+      border: 1px solid var(--borderColor);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .mech-embed iframe,
+    .mech-embed > .embed-source {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .mech-embed .placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 22px;
+      text-align: center;
+      color: var(--textMuted);
+    }
+    .mech-embed .placeholder svg { width: 32px; height: 32px; color: var(--accentBlue); opacity: 0.6; }
+    .mech-embed .placeholder .ph-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--textSecondary);
+      letter-spacing: 0.02em;
+    }
+    .mech-embed .placeholder .ph-hint {
+      font-size: 0.7rem;
+      color: var(--textMuted);
+      font-style: italic;
+      max-width: 26ch;
+      line-height: 1.4;
+    }
+    .expand-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(17, 17, 17, 0.78);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.18s ease;
+      z-index: 2;
+    }
+    .expand-btn:hover { background: var(--accentBlue); }
+    .expand-btn svg { width: 14px; height: 14px; }
+
+    .infographic-toggle {
+      margin-top: 12px;
+      width: 100%;
+      justify-content: center;
+    }
+    .infographic-content {
+      margin-top: 12px;
+      background: var(--bgPanel);
+      border: 1px solid var(--borderColor);
+      border-radius: 12px;
+      padding: 18px;
+      animation: fadeUp 0.3s ease-out;
+    }
+    .infographic-content[hidden] { display: none !important; }
+    .infographic-content .placeholder-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bgMain);
+      border: 1px dashed var(--borderColor);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--textMuted);
+      font-size: 0.85rem;
+      font-style: italic;
+      text-align: center;
+      padding: 18px;
+    }
+
+    /* ─────────────── Fullscreen simulation overlay ─────────────── */
+    .sim-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(15, 15, 18, 0.92);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      animation: fadeUp 0.22s ease-out;
+    }
+    .sim-overlay[hidden] { display: none !important; }
+    .sim-overlay-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 1400px;
+      max-height: 900px;
+      background: var(--bgCard);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
+    .sim-overlay-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sim-overlay-content > * {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .sim-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      background: rgba(17,17,17,0.85);
+      color: #fff;
+      border: none;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s ease, transform 0.1s ease;
+    }
+    .sim-close:hover { background: var(--accentRed); }
+    .sim-close:active { transform: scale(0.94); }
     .clip-prompt {
       background: var(--bgCard);
       border: 1px solid var(--borderColor);
@@ -515,7 +717,9 @@
       header.topbar,
       .print-btn,
       #panel-withdrawal,
-      #panel-simulations { display: none !important; }
+      #panel-mechanisms,
+      #panel-reflection,
+      .sim-overlay { display: none !important; }
       main.shell {
         padding: 0 !important;
         max-width: 100% !important;
@@ -623,8 +827,11 @@
         <button class="tab" role="tab" aria-selected="false" data-tab="withdrawal">
           <span class="num">2</span> Withdrawal
         </button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="simulations">
-          <span class="num">3</span> Simulations
+        <button class="tab" role="tab" aria-selected="false" data-tab="mechanisms">
+          <span class="num">3</span> Mechanisms
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="reflection">
+          <span class="num">4</span> Reflection
         </button>
       </nav>
     </div>
@@ -814,14 +1021,191 @@
       </article>
     </section>
 
-    <!-- ============ TAB 3 (stub) ============ -->
-    <section class="panel" id="panel-simulations" role="tabpanel" hidden>
+    <!-- ============ TAB 3 — Mechanisms ============ -->
+    <section class="panel" id="panel-mechanisms" role="tabpanel" hidden>
+
+      <!-- ── Fentanyl ── -->
+      <article class="mech-section">
+        <div class="mech-title-row">
+          <h3 class="mech-title">Fentanyl</h3>
+          <span class="drug-class opioid">Opioid</span>
+        </div>
+        <div class="mech-grid">
+          <div class="mech-col">
+            <div class="mech-eyebrow">Student Simulation</div>
+            <div class="mech-embed sim-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                <div class="ph-label">Student simulation</div>
+                <div class="ph-hint">Drop a Vercel link, iframe, or HTML file here. Click expand to play full screen.</div>
+              </div>
+              <button class="expand-btn" type="button" onclick="expandSim(this)" aria-label="Expand simulation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                Expand
+              </button>
+            </div>
+          </div>
+          <div class="mech-col">
+            <div class="mech-eyebrow">Mechanism of Action — Student Video</div>
+            <div class="mech-embed video-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <div class="ph-label">Student-made explainer video</div>
+                <div class="ph-hint">Paste a YouTube or Drive embed URL here.</div>
+              </div>
+            </div>
+            <button class="reveal-toggle infographic-toggle" type="button" onclick="toggleInfographic(this)" data-label-show="Click for infographic summary" data-label-hide="Hide infographic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="reveal-toggle-label">Click for infographic summary</span>
+            </button>
+            <div class="infographic-content" hidden>
+              <div class="placeholder-img">Infographic placeholder — drop image, PDF, or HTML embed for the Fentanyl mechanism summary.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Methamphetamine ── -->
+      <article class="mech-section">
+        <div class="mech-title-row">
+          <h3 class="mech-title">Methamphetamine</h3>
+          <span class="drug-class stimulant">Stimulant</span>
+        </div>
+        <div class="mech-grid">
+          <div class="mech-col">
+            <div class="mech-eyebrow">Student Simulation</div>
+            <div class="mech-embed sim-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                <div class="ph-label">Student simulation</div>
+                <div class="ph-hint">Drop a Vercel link, iframe, or HTML file here. Click expand to play full screen.</div>
+              </div>
+              <button class="expand-btn" type="button" onclick="expandSim(this)" aria-label="Expand simulation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                Expand
+              </button>
+            </div>
+          </div>
+          <div class="mech-col">
+            <div class="mech-eyebrow">Mechanism of Action — Student Video</div>
+            <div class="mech-embed video-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <div class="ph-label">Student-made explainer video</div>
+                <div class="ph-hint">Paste a YouTube or Drive embed URL here.</div>
+              </div>
+            </div>
+            <button class="reveal-toggle infographic-toggle" type="button" onclick="toggleInfographic(this)" data-label-show="Click for infographic summary" data-label-hide="Hide infographic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="reveal-toggle-label">Click for infographic summary</span>
+            </button>
+            <div class="infographic-content" hidden>
+              <div class="placeholder-img">Infographic placeholder — drop image, PDF, or HTML embed for the Methamphetamine mechanism summary.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── Alcohol ── -->
+      <article class="mech-section">
+        <div class="mech-title-row">
+          <h3 class="mech-title">Alcohol</h3>
+          <span class="drug-class depressant">Depressant</span>
+        </div>
+        <div class="mech-grid">
+          <div class="mech-col">
+            <div class="mech-eyebrow">Student Simulation</div>
+            <div class="mech-embed sim-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                <div class="ph-label">Student simulation</div>
+                <div class="ph-hint">Drop a Vercel link, iframe, or HTML file here. Click expand to play full screen.</div>
+              </div>
+              <button class="expand-btn" type="button" onclick="expandSim(this)" aria-label="Expand simulation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                Expand
+              </button>
+            </div>
+          </div>
+          <div class="mech-col">
+            <div class="mech-eyebrow">Mechanism of Action — Student Video</div>
+            <div class="mech-embed video-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <div class="ph-label">Student-made explainer video</div>
+                <div class="ph-hint">Paste a YouTube or Drive embed URL here.</div>
+              </div>
+            </div>
+            <button class="reveal-toggle infographic-toggle" type="button" onclick="toggleInfographic(this)" data-label-show="Click for infographic summary" data-label-hide="Hide infographic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="reveal-toggle-label">Click for infographic summary</span>
+            </button>
+            <div class="infographic-content" hidden>
+              <div class="placeholder-img">Infographic placeholder — drop image, PDF, or HTML embed for the Alcohol mechanism summary.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── MDMA ── -->
+      <article class="mech-section">
+        <div class="mech-title-row">
+          <h3 class="mech-title">MDMA</h3>
+          <span class="drug-class empathogen">Empathogen</span>
+        </div>
+        <div class="mech-grid">
+          <div class="mech-col">
+            <div class="mech-eyebrow">Student Simulation</div>
+            <div class="mech-embed sim-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                <div class="ph-label">Student simulation</div>
+                <div class="ph-hint">Drop a Vercel link, iframe, or HTML file here. Click expand to play full screen.</div>
+              </div>
+              <button class="expand-btn" type="button" onclick="expandSim(this)" aria-label="Expand simulation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                Expand
+              </button>
+            </div>
+          </div>
+          <div class="mech-col">
+            <div class="mech-eyebrow">Mechanism of Action — Student Video</div>
+            <div class="mech-embed video-embed">
+              <div class="placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <div class="ph-label">Student-made explainer video</div>
+                <div class="ph-hint">Paste a YouTube or Drive embed URL here.</div>
+              </div>
+            </div>
+            <button class="reveal-toggle infographic-toggle" type="button" onclick="toggleInfographic(this)" data-label-show="Click for infographic summary" data-label-hide="Hide infographic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="reveal-toggle-label">Click for infographic summary</span>
+            </button>
+            <div class="infographic-content" hidden>
+              <div class="placeholder-img">Infographic placeholder — drop image, PDF, or HTML embed for the MDMA mechanism summary.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ============ TAB 4 — Reflection (stub) ============ -->
+    <section class="panel" id="panel-reflection" role="tabpanel" hidden>
       <div class="stub">
         <div class="stub-label">Coming next</div>
-        <div class="stub-title">Simulations</div>
-        <p class="stub-text">Step-by-step simulations of how each drug hijacks the synapse: methamphetamine forcing dopamine into the cleft, heroin binding μ-opioid receptors, alcohol modulating GABA and glutamate channels.</p>
+        <div class="stub-title">Reflection</div>
+        <p class="stub-text">Space for student reflection prompts and responses. Tell me what you want here and I'll build it.</p>
       </div>
     </section>
+
+    <!-- Fullscreen overlay for expandable simulations -->
+    <div class="sim-overlay" id="simOverlay" hidden>
+      <div class="sim-overlay-inner">
+        <button class="sim-close" type="button" onclick="closeSim()" aria-label="Close fullscreen">×</button>
+        <div class="sim-overlay-content" id="simOverlayContent"></div>
+      </div>
+    </div>
 
   </main>
 
@@ -886,8 +1270,51 @@
     const panels = {
       neurotransmitters: document.getElementById('panel-neurotransmitters'),
       withdrawal:       document.getElementById('panel-withdrawal'),
-      simulations:      document.getElementById('panel-simulations'),
+      mechanisms:       document.getElementById('panel-mechanisms'),
+      reflection:       document.getElementById('panel-reflection'),
     };
+
+    /* ─── Infographic toggle (mirrors reveal-toggle pattern) ─── */
+    function toggleInfographic(btn) {
+      const wrapper = btn.parentElement;
+      const content = wrapper.querySelector('.infographic-content');
+      const label   = btn.querySelector('.reveal-toggle-label');
+      const isHidden = content.hasAttribute('hidden');
+      if (isHidden) {
+        content.removeAttribute('hidden');
+        label.textContent = btn.dataset.labelHide;
+      } else {
+        content.setAttribute('hidden', '');
+        label.textContent = btn.dataset.labelShow;
+      }
+    }
+
+    /* ─── Fullscreen simulation overlay ─── */
+    function expandSim(btn) {
+      const embed = btn.closest('.mech-embed');
+      const overlay = document.getElementById('simOverlay');
+      const content = document.getElementById('simOverlayContent');
+      content.innerHTML = '';
+      // Clone whatever is inside the embed (placeholder OR real iframe).
+      // Skip the expand button itself.
+      Array.from(embed.children).forEach(child => {
+        if (child.classList && child.classList.contains('expand-btn')) return;
+        content.appendChild(child.cloneNode(true));
+      });
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSim() {
+      const overlay = document.getElementById('simOverlay');
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSim();
+    });
+    document.getElementById('simOverlay').addEventListener('click', (e) => {
+      if (e.target.id === 'simOverlay') closeSim();
+    });
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const target = tab.dataset.tab;
