@@ -496,6 +496,34 @@
       font-weight: 700;
       margin-bottom: 8px;
     }
+    .sim-toggle {
+      display: inline-flex;
+      background: var(--bgMain);
+      border: 1px solid var(--borderColor);
+      border-radius: 9999px;
+      padding: 3px;
+      margin-bottom: 10px;
+      gap: 2px;
+    }
+    .sim-toggle-btn {
+      background: transparent;
+      border: none;
+      padding: 5px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--textSecondary);
+      cursor: pointer;
+      border-radius: 9999px;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .sim-toggle-btn:hover { color: var(--textPrimary); }
+    .sim-toggle-btn.active {
+      background: var(--accentBlue);
+      color: #fff;
+    }
     .mech-embed {
       position: relative;
       aspect-ratio: 16 / 10;
@@ -1377,7 +1405,11 @@
         </div>
         <div class="mech-grid">
           <div class="mech-col">
-            <div class="mech-eyebrow">Student Simulation</div>
+            <div class="mech-eyebrow">Student Simulations</div>
+            <div class="sim-toggle" role="tablist" aria-label="Choose student simulation">
+              <button type="button" class="sim-toggle-btn active" onclick="switchSim(this)" data-src="https://mdma-synapse-simulation.vercel.app">Group 1</button>
+              <button type="button" class="sim-toggle-btn"        onclick="switchSim(this)" data-src="https://fantastic-begonia-401691.netlify.app/">Group 2</button>
+            </div>
             <div class="mech-embed sim-embed">
               <iframe src="https://mdma-synapse-simulation.vercel.app" title="MDMA synapse simulation" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
               <button class="expand-btn" type="button" onclick="expandSim(this)" aria-label="Expand simulation">
@@ -1643,6 +1675,16 @@
         content.setAttribute('hidden', '');
         label.textContent = btn.dataset.labelShow;
       }
+    }
+
+    /* ─── Swap student simulation iframe (Tab 3, multi-group drugs) ─── */
+    function switchSim(btn) {
+      const toggle = btn.parentElement;
+      toggle.querySelectorAll('.sim-toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const embed = toggle.nextElementSibling;
+      const iframe = embed.querySelector('iframe');
+      if (iframe && btn.dataset.src) iframe.src = btn.dataset.src;
     }
 
     /* ─── Fullscreen simulation overlay ─── */
