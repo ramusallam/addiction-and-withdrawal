@@ -12,20 +12,28 @@
       --bgPanel: #FFFFFF;
       --bgCard:  #FFFFFF;
       --bgSubtle: #FAFAF7;
-      --borderColor: #E5E7EB;
-      --borderSoft: #EFEAE2;
+      --borderColor: #E8E0D2;
+      --borderSoft: #F0EBE3;
 
-      --textPrimary:   #111111;
-      --textSecondary: #404040;
-      --textMuted:     #9CA3AF;
+      --textPrimary:   #1C1917;
+      --textSecondary: #57534E;
+      --textMuted:     #A0937B;
 
-      --accentBlue:    #3b82f6;
+      --accentBlue:    #6366f1;
+      --accentBlueHover: #4f46e5;
+      --indigo-2:      #818CF8;
+      --indigo-soft:   rgba(99,102,241,0.09);
+      --indigo-line:   rgba(99,102,241,0.30);
       --accentPurple:  #a855f7;
-      --accentGreen:   #22c55e;
+      --accentGreen:   #10b981;
       --accentAmber:   #f59e0b;
       --accentRed:     #ef4444;
 
       --mol-stroke: #1f2937;
+
+      --sh-sm: 0 1px 2px rgba(17,17,17,0.05),0 2px 6px rgba(17,17,17,0.08);
+      --sh-md: 0 4px 12px rgba(17,17,17,0.06),0 2px 4px rgba(17,17,17,0.04);
+      --sh-lg: 0 16px 40px rgba(17,17,17,0.10),0 4px 12px rgba(17,17,17,0.06);
 
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-serif: 'Roboto Serif', Georgia, serif;
@@ -133,11 +141,12 @@
     }
 
     .page-eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--textMuted);
-      font-weight: 700;
+      color: var(--accentBlue);
+      font-weight: 900;
       margin-bottom: 10px;
     }
     .page-title {
@@ -159,9 +168,9 @@
       position: relative;
       background: var(--bgCard);
       border: 1px solid var(--borderColor);
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      box-shadow: var(--sh-sm);
     }
     .print-btn {
       position: absolute;
@@ -264,10 +273,10 @@
       --hl-ring: rgba(239, 68, 68, 0.32);
     }
     .nt-row[data-nt="gaba"].nt-highlight {
-      --hl: #2563eb;
-      --hl-soft: rgba(59, 130, 246, 0.09);
-      --hl-glow: rgba(59, 130, 246, 0.45);
-      --hl-ring: rgba(59, 130, 246, 0.32);
+      --hl: #4f46e5;
+      --hl-soft: rgba(99, 102, 241, 0.09);
+      --hl-glow: rgba(99, 102, 241, 0.45);
+      --hl-ring: rgba(99, 102, 241, 0.32);
     }
     .nt-row[data-nt="dopamine"].nt-highlight {
       --hl: #d97706;
@@ -276,10 +285,10 @@
       --hl-ring: rgba(245, 158, 11, 0.32);
     }
     .nt-row[data-nt="serotonin"].nt-highlight {
-      --hl: #16a34a;
-      --hl-soft: rgba(34, 197, 94, 0.09);
-      --hl-glow: rgba(34, 197, 94, 0.45);
-      --hl-ring: rgba(34, 197, 94, 0.32);
+      --hl: #059669;
+      --hl-soft: rgba(16, 185, 129, 0.09);
+      --hl-glow: rgba(16, 185, 129, 0.45);
+      --hl-ring: rgba(16, 185, 129, 0.32);
     }
     .nt-row[data-nt="endorphins"].nt-highlight {
       --hl: #9333ea;
@@ -346,9 +355,9 @@
       margin-top: 40px;
       background: var(--bgPanel);
       border: 1px solid var(--borderColor);
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 30px 32px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      box-shadow: var(--sh-sm);
     }
     .shortcut-label {
       font-size: 0.72rem;
@@ -398,11 +407,11 @@
     }
     .clip-eyebrow {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-size: 10px;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--textMuted);
-      font-weight: 700;
+      color: var(--accentBlue);
+      font-weight: 900;
       margin-bottom: 8px;
     }
     .clip-title-row {
@@ -438,9 +447,9 @@
       border: 1px solid rgba(239, 68, 68, 0.35);
     }
     .drug-class.depressant {
-      background: rgba(59, 130, 246, 0.10);
-      color: #1e40af;
-      border: 1px solid rgba(59, 130, 246, 0.35);
+      background: rgba(99, 102, 241, 0.10);
+      color: #3730a3;
+      border: 1px solid rgba(99, 102, 241, 0.35);
     }
     .drug-class.opioid {
       background: rgba(168, 85, 247, 0.10);
@@ -459,9 +468,11 @@
       padding: 28px 30px;
       background: var(--bgCard);
       border: 1px solid var(--borderColor);
-      border-radius: 18px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      border-radius: 16px;
+      box-shadow: var(--sh-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .mech-section:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); }
     .mech-section + .mech-section { margin-top: 24px; }
     .mech-title-row {
       display: flex;
@@ -489,11 +500,11 @@
     }
     .mech-eyebrow {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
+      font-size: 10px;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--textMuted);
-      font-weight: 700;
+      color: var(--accentBlue);
+      font-weight: 900;
       margin-bottom: 8px;
     }
     .sim-toggle {
@@ -627,7 +638,7 @@
       cursor: zoom-in;
       transition: box-shadow 0.18s ease;
     }
-    .infographic-image:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .infographic-image:hover { box-shadow: var(--sh-md); }
     .infographic-zoom-hint {
       font-family: var(--font-sans);
       font-size: 0.72rem;
@@ -669,9 +680,11 @@
       border-left: 3px solid var(--accentBlue);
       border-radius: 14px;
       padding: 26px 30px 28px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      box-shadow: var(--sh-sm);
       animation: fadeUp 0.4s ease-out both;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .rq-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); }
     .rq-eyebrow {
       display: inline-block;
       font-family: var(--font-mono);
@@ -841,7 +854,7 @@
       font-family: var(--font-sans);
       letter-spacing: 0.01em;
     }
-    .reveal-toggle:hover { background: #2563eb; }
+    .reveal-toggle:hover { background: var(--accentBlueHover); }
     .reveal-toggle:active { transform: scale(0.97); }
     .reveal-toggle svg { width: 16px; height: 16px; }
     .reveal-content {
@@ -909,9 +922,9 @@
       text-transform: uppercase;
       padding: 5px 11px;
       border-radius: 9999px;
-      background: rgba(34, 197, 94, 0.12);
-      color: #166534;
-      border: 1px solid rgba(34, 197, 94, 0.35);
+      background: rgba(16, 185, 129, 0.12);
+      color: #047857;
+      border: 1px solid rgba(16, 185, 129, 0.35);
     }
     .reveal-text h4 {
       font-family: var(--font-serif);
@@ -942,7 +955,7 @@
       background: #000;
       border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+      box-shadow: var(--sh-lg);
     }
     .clip-frame iframe {
       position: absolute; inset: 0;
@@ -1036,7 +1049,7 @@
     .stub {
       background: var(--bgCard);
       border: 1px dashed var(--borderColor);
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 60px 30px;
       text-align: center;
       color: var(--textMuted);
